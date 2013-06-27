@@ -18,9 +18,14 @@
  */
 package blackboard.bbworld2013.api;
 
+import blackboard.base.IMultiFactory;
+import blackboard.platform.extension.util.ExtensionIFactory;
+
 public interface Geekifier
 {
 
+  public static final IMultiFactory<Geekifier> Factory = ExtensionIFactory.getMultiFactory( Geekifier.class, "blackboard.bbworld2013.api.geekifier", false );
+      
   /**
    * Takes a phrase and returns a "geekified" version of the phrase.
    * @param normalPhrase A normal, everyday, non-geek phrase.
