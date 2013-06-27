@@ -7,7 +7,7 @@ apply plugin: "eclipse"
 apply from: "api.gradle"
 
 // define the version for the project when publishing to maven
-group "edu.monument"
+group "blackboard.bbworld2013"
 version "1.0-SNAPSHOT"
 
 ext {

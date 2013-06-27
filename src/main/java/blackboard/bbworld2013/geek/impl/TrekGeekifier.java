@@ -34,7 +34,7 @@ import blackboard.platform.spring.beans.annotations.Extension;
 public class TrekGeekifier implements Geekifier
 {
   
-  public static final String TREK_FORMAT = "On episode %d of Star Trek, %s";
+  public static final String TREK_FORMAT = "On episode %d of Star Trek, Captain Kirk said \"%s\".";
 
   private Random _random;
   

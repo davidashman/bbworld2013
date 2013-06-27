@@ -30,7 +30,7 @@
      -->    
 
     <application-defs>
-      <application handle="test" type="shared" use-ssl="false" 
+      <application handle="bbworld2013" type="shared" use-ssl="false" 
                    name="TODO Name for your application" can-allow-guest="false">
         <description lang="en_US">TODO Description of your application</description>
         <links>
