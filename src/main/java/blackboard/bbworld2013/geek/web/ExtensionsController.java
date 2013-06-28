@@ -8,29 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import blackboard.base.IMultiFactory;
 import blackboard.bbworld2013.api.Geekifier;
-import blackboard.platform.extension.service.ExtensionRegistry;
 
 @Controller
 public class ExtensionsController
 {
 
+  private IMultiFactory<Geekifier> _factory;
+  
   @Autowired
-  private ExtensionRegistry _registry;
-  
-  public ExtensionsController()
+  public ExtensionsController( IMultiFactory<Geekifier> factory )
   {
-  }
-  
-  public ExtensionsController( ExtensionRegistry registry )
-  {
-    _registry = registry;
+    _factory = factory;
   }
   
   @RequestMapping( "/extensions" )
   public ModelAndView handleIndex( @RequestParam( value = "p", defaultValue = "Hello World!" ) String phrase )
   {
-    Collection<Geekifier> extensions = _registry.getExtensions( "blackboard.bbworld2013.api.geekifier" );
+    Collection<Geekifier> extensions = _factory.getInstances();
 
     StringBuilder str = new StringBuilder();
     str.append( phrase );

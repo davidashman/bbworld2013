@@ -24,6 +24,10 @@ import blackboard.platform.extension.util.ExtensionIFactory;
 public interface Geekifier
 {
 
+  /**
+   * IMultiFactory is a simple abstract factory interface that allows you to access multiple implementations of an object.  In this
+   * case, extensions loaded through the extension system.
+   */
   public static final IMultiFactory<Geekifier> Factory = ExtensionIFactory.getMultiFactory( Geekifier.class, "blackboard.bbworld2013.api.geekifier", false );
       
   /**

@@ -11,20 +11,20 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
 
+import blackboard.base.IMultiFactory;
 import blackboard.bbworld2013.api.Geekifier;
-import blackboard.platform.extension.service.ExtensionRegistry;
 
 @RunWith( MockitoJUnitRunner.class )
 public class ExtensionsControllerTest
 {
 
   @Mock private Geekifier _mockGeekifier;
-  @Mock private ExtensionRegistry _mockRegistry;
+  @Mock private IMultiFactory<Geekifier> _mockFactory;
   
   @Test
   public void modelPhrasesEqualsOriginalPhraseWithNoExtensions()
   {
-    ExtensionsController cut = new ExtensionsController( _mockRegistry );
+    ExtensionsController cut = new ExtensionsController( _mockFactory );
     ModelAndView mv = cut.handleIndex( "test" );
     
     Assert.assertEquals( "test<br/>", mv.getModel().get( "phrases" ).toString() );
@@ -35,11 +35,11 @@ public class ExtensionsControllerTest
   {
     Mockito.when( _mockGeekifier.toGeekPhrase( "test" ) ).thenReturn( "geek" );
     
-    Collection<Object> extensions = new LinkedList<Object>();
+    Collection<Geekifier> extensions = new LinkedList<Geekifier>();
     extensions.add( _mockGeekifier );
     
-    Mockito.when( _mockRegistry.getExtensions( Mockito.anyString() ) ).thenReturn( extensions );
-    ExtensionsController cut = new ExtensionsController( _mockRegistry );
+    Mockito.when( _mockFactory.getInstances() ).thenReturn( extensions );
+    ExtensionsController cut = new ExtensionsController( _mockFactory );
     ModelAndView mv = cut.handleIndex( "test" );
     
     Assert.assertEquals( "test<br/>geek<br/>", mv.getModel().get( "phrases" ).toString() );
