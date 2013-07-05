@@ -4,7 +4,7 @@ apply plugin: "maven"
 apply plugin: "eclipse"
 
 // Uncomment if your project has an API JAR
-apply from: "api.gradle"
+// apply from: "api.gradle"
 
 // define the version for the project when publishing to maven
 group "blackboard.bbworld2013"

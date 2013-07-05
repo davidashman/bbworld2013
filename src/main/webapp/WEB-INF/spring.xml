@@ -61,8 +61,4 @@
     <property name="exceptionAttribute" value="exceptionObj" />
   </bean>
   
-  <bean id="geekifier" class="blackboard.platform.spring.beans.extensions.ExtensionPointBean">
-  	<property name="className" value="blackboard.bbworld2013.api.Geekifier" />
-  </bean>
-
 </beans>
