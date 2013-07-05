@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+
+  <bean id="customAutowireBeanFactoryProcessor" class="blackboard.platform.spring.beans.CustomAutowireBeanFactoryProcessor" />
+
+  <context:annotation-config />
+  <mvc:annotation-driven />
+ 
+  <context:component-scan
+    base-package="blackboard.bbworld2013, blackboard.platform.spring" />
+
+  <aop:aspectj-autoproxy />
+
+  <bean id="bundleManager"
+    class="blackboard.platform.spring.service.impl.BundleManagerImpl">
+    <constructor-arg value="bb" />
+    <constructor-arg value="date-rollover" />
+  </bean>
+
+  <bean id="messageSource"
+    class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basename" value="messages" />
+  </bean>
+
+  <bean id="primaryViewResolver"
+    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="viewClass"
+      value="org.springframework.web.servlet.view.JstlView" />
+    <property name="prefix" value="/WEB-INF/jsp/" />
+    <property name="suffix" value=".jsp" />
+    <property name="order" value="2" />
+    <property name="contentType" value="text/html; charset=UTF-8" />
+  </bean>
+
+  <mvc:interceptors>
+    <ref bean="bundleInterceptor" />
+    <ref bean="userAuthorizationInterceptor" />
+    <ref bean="XSRFInterceptor" />
+  </mvc:interceptors>
+
+  <bean id="genericExceptionResolver"
+    class="blackboard.platform.spring.web.resolvers.ExceptionResolver">
+    <property name="exceptionMappings">
+      <props>
+        <prop key="java.lang.Exception">handleException</prop>
+      </props>
+    </property>
+    <property name="exceptionAttribute" value="exceptionObj" />
+  </bean>
+  
+  <bean id="geekifier" class="blackboard.platform.spring.beans.extensions.ExtensionPointBean">
+  	<property name="className" value="blackboard.bbworld2013.api.Geekifier" />
+  </bean>
+
+</beans>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns="http://www.blackboard.com/bb-manifest-plugin"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.blackboard.com/bb-manifest-plugin https://maven.blackboard.com/content/repositories/releases/blackboard/platform/bb-manifest-plugin/9.1.110082.0/bb-manifest-plugin-9.1.110082.0.xsd">
+<manifest>
   <plugin>
 
     <name value="b2.name" />
-    <handle value="template" />
+    <handle value="bbworld2013" />
     <description value="b2.description" />
     <default-locale value="en_US" />
 
@@ -15,10 +13,10 @@
     </requires>
 
     <vendor>
-      <id value="mnmt" />
-      <name value="Monument University" />
-      <url value="http://www.monument.edu/" />
-      <description value="Monument University" />
+      <id value="bb" />
+      <name value="Blackboard" />
+      <url value="http://www.blackboard.com" />
+      <description value="Blackboard, Inc." />
     </vendor>
 
 
@@ -33,16 +31,11 @@
 
     <!-- 
     <application-defs>
-      <application handle="test" type="shared" use-ssl="false" 
+      <application handle="bbworld2013" type="shared" use-ssl="false" 
                    name="TODO Name for your application" can-allow-guest="false">
         <description lang="en_US">TODO Description of your application</description>
         <links>
-          <link>
-            <type value="course_tool"/>
-            <name value="Example Course tool"/>
-            <url value="index.jsp" />
-            <description value="An Example course Tool" />
-          </link>
+          
         </links>
       </application>
     </application-defs>
@@ -69,18 +62,13 @@
 
     <!-- Code permissions required for proper operation -->
     <permissions>
-      <permission type="attribute" name="user.authinfo" actions="get"/>
-      <permission type="attribute" name="user.personalinfo" actions="get,set"/>
-      
       <!-- We need these permissions to allow Spring to auto-discover -->
       <!-- and wire beans together and Hibernate to interact with objects. -->
-      <!--
       <permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" />
       <permission type="java.lang.RuntimePermission" name="accessDeclaredMembers" />
       <permission type="java.lang.RuntimePermission" name="createClassLoader" />
       <permission type="java.lang.RuntimePermission" name="setContextClassLoader" />
       <permission type="java.io.FilePermission" name="${java.home}/lib/*" actions="read" />
-      -->
     </permissions>
 
   </plugin>

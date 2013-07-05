@@ -1,4 +1,4 @@
-basic-b2-template
+BbWorld 2013
 =================
 
-This project provides the framework for starting a new Building Block (B2) project for Blackboard Learn.  Fork this project and make changes as necessary for your project.
+This is a sample project to show the various capabilities of the Building Block framework.

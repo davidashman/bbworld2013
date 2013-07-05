@@ -4,23 +4,23 @@ apply plugin: "maven"
 apply plugin: "eclipse"
 
 // Uncomment if your project has an API JAR
-//apply from: "api.gradle"
+apply from: "api.gradle"
 
 // define the version for the project when publishing to maven
-group "edu.monument"
+group "blackboard.bbworld2013"
 version "1.0-SNAPSHOT"
 
 ext {
-  learnVersion = "9.1.120113.0"
-  deployServer = "localhost:8000"
+  learnVersion = "9.1.140000-SNAPSHOT"
+  deployServer = "localhost:9876"
   deployInstance = "BBLEARN"
 }
 
 repositories {
+  mavenLocal()
   mavenCentral()
-  maven {
-    url "https://maven.blackboard.com/content/repositories/releases/"
-  }
+  maven { url "https://maven.blackboard.com/content/repositories/releases/" }
+  maven { url "http://maven.pd.local/content/groups/public" }
 }
 
 configurations {
@@ -32,19 +32,33 @@ dependencies {
   providedCompile "javax.servlet:servlet-api:2.5",
                   "javax.servlet.jsp:jsp-api:2.1"
 
+  // apiCompile are dependencies that are required to compile the API jar.
+  // These dependencies are treated like providedCompile dependencies - they
+  // are used for compilation, but not included in the WAR.
+  // apiCompile "org.foo:foo:1.0"
+
   // Dependencies are libraries needed to build, but should not be included in the B2 WAR.
   // You should NEVER include Learn JARs (other than webapis) in your B2.
-  // providedCompile( "blackboard.platform:bb-platform:$ext.learnVersion" ) { transitive = false }
-  // providedCompile( "blackboard.platform:bb-taglibs:$ext.learnVersion" ) { transitive = false }
+  providedCompile( "blackboard.platform:bb-platform:$ext.learnVersion" )
+  providedCompile( "blackboard.platform:bb-taglibs:$ext.learnVersion" ) 
+  providedCompile( "blackboard.platform:bb-exec:$ext.learnVersion" ) 
 
   // Building a Spring B2?  Use our Spring APIs!
-  // compile "blackboard.platform:bb-spring-webapi:10.1"
+  compile "blackboard.platform:bb-spring-webapi:10.2-SNAPSHOT"
 
   // Include the Blackboard security web APIs for protecting your B2.
   // compile "blackboard.platform:security-webapi:1.0"
 
+  // Some more Spring stuff
+  compile "aopalliance:aopalliance:1.0",
+          "org.aspectj:aspectjrt:1.7.1",
+          "org.aspectj:aspectjweaver:1.7.1"
+
   // Dependencies that are only necessary at runtime so should be included in the WAR
   // runtime "org.javassist:javassist:3.17.1-GA"
+
+  testCompile "org.mockito:mockito-core:1.9.5"
+  testCompile "junit:junit:4.11"
 
   buildUtils "org.oscelot:b2deploy-task:0.1.0"
 }
